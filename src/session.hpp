@@ -162,7 +162,7 @@ public:
             _server->set_timer(0, std::bind(&session_manager::append_session, this, ssp));
 
             //重新给session添加定时销毁任务
-            server_t::timer_ptr tmp_tp = _server->set_timer(ms, std::bind(&session_manager::remove_session,  this, ssp->get_ssid()));
+            server_t::timer_ptr tmp_tp = _server->set_timer(ms, std::bind(&session_manager::remove_session, this, ssp->get_ssid()));
 
             //重新设置session关联的定时器
             ssp->set_timer(tmp_tp);
