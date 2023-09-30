@@ -131,12 +131,12 @@ public:
         //登录之后，创建session，session需要在指定时间无通信后删除
         //但是进入游戏大厅，或者游戏房间，这个session就应该长久存在
         //等到退出游戏大厅，或者游戏房间，这个session应该被重新设置为临时，在长时间无通信后删除
-        session_ptr ssp = get_sesson(session_id);  //通过会话ID，获取对应的sesson类
+        session_ptr ssp = get_sesson(session_id);//通过会话ID，获取对应的sesson类
         if (ssp.get() == nullptr) {
             return;
         }
 
-        server_t::timer_ptr tp = ssp->get_timer();  //获取定时器
+        server_t::timer_ptr tp = ssp->get_timer();//获取定时器
         if (tp.get() == nullptr && ms == SESSION_FOREVER) {
             //意味着session在创建时被设置为永久存在，所以无需任何更改，所以函数直接返回。
             //1.在sesson永久存在的情况下，设置永久存在
@@ -150,9 +150,9 @@ public:
             //3.在sesson设置了定时删除的情况下，将sesson设置为永久存在
             //删除定时任务--- stready_timer删除定时任务会导致任务直接执行
             //意味着要将临时的session更改为永久的session。因此，取消定时器并将其设置为空，因为永久的session不需要定时器。
-            tp->cancel();//这个取消定时任务不是立即取消的
+            tp->cancel();                         //这个取消定时任务不是立即取消的
             ssp->set_timer(server_t::timer_ptr());//将session关联的定时器设置为空
-              //因此重新给session管理器中，添加一个session信息, 且添加的时候需要使用定时器，而不是立即添加
+                                                  //因此重新给session管理器中，添加一个session信息, 且添加的时候需要使用定时器，而不是立即添加
             _server->set_timer(0, std::bind(&session_manager::append_session, this, ssp));
         } else if (tp.get() != nullptr && ms != SESSION_FOREVER) {
             //4.在sesson设置了定时删除的情况下，将sesson重置删除时间
