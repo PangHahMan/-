@@ -2,6 +2,7 @@
 #include "logger.hpp"
 #include "online.hpp"
 #include "room.hpp"
+#include "session.hpp"
 #include "util.hpp"
 #include <iostream>
 
