@@ -1,5 +1,6 @@
 #include "db.hpp"
 #include "logger.hpp"
+#include "matcher.hpp"
 #include "online.hpp"
 #include "room.hpp"
 #include "session.hpp"
@@ -135,6 +136,8 @@ void room_test() {
     online_manager om;
     room_manager rm(&user, &om);
     room_ptr rp = rm.create_room(10, 20);
+
+    matcher mc(&rm, &user, &om);
 }
 int main() {
     room_test();
