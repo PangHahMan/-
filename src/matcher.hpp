@@ -99,6 +99,7 @@ private:
 
             //3.校验两个玩家是否在线，如果有人掉线，则要吧另一个人重新添加入队列
             server_t::connection_ptr conn1 = _om->get_conn_from_hall(uid1);
+            //conn1智能指针为nullptr 不在线
             if (conn1.get() == nullptr) {
                 this->add(uid2);
                 continue;
@@ -122,6 +123,7 @@ private:
             rsp["result"] = true;
             std::string body;
             json_util::serialize(rsp, body);
+            //向uid1 和 uid2 对应的两个客户端（玩家）发送数据
             conn1->send(body);
             conn2->send(body);
         }
