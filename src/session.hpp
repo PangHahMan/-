@@ -18,7 +18,8 @@ private:
     server_t::timer_ptr _tp;// 定时器对象指针
 public:
     // 构造函数
-    session(uint64_t ssid) {
+    session(uint64_t ssid)
+        : _ssid(ssid) {
         DBG_LOG("session %p 创建了", this);
     }
 

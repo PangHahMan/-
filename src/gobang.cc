@@ -3,6 +3,7 @@
 #include "matcher.hpp"
 #include "online.hpp"
 #include "room.hpp"
+#include "server.hpp"
 #include "session.hpp"
 #include "util.hpp"
 #include <iostream>
@@ -139,7 +140,13 @@ void room_test() {
 
     matcher mc(&rm, &user, &om);
 }
+
+void server_test1() {
+    server _server(HOST, USER, PASS, DBNAME, PORT);
+    _server.start(8085);
+}
+
 int main() {
-    room_test();
+    server_test1();
     return 0;
 }

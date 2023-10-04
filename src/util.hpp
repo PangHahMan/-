@@ -103,8 +103,9 @@ public:
             //从index位置开始查找
             pos = str.find(sep, index);
             if (pos == std::string::npos) {
-                //没找到，将整个字符串push到vec中
-                vec.push_back(str);
+                //没有找到,字符串中没有间隔字符了，则跳出循环
+                //从index开始剩余的字符串插入到vec中
+                vec.push_back(str.substr(index));
                 break;
             }
 
