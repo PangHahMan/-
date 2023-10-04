@@ -127,10 +127,8 @@ private:
         }
         _sm.set_session_expire_time(ssp->get_ssid(), SESSION_TIMEOUT);
         //4. 设置响应头部：Set-Cookie,将sessionid通过cookie返回
-        std::cout << "ssid:" << ssp->get_ssid() << std::endl;
         std::string cookie_ssid = "SSID=" + std::to_string(ssp->get_ssid());
         conn->append_header("Set-Cookie", cookie_ssid);
-        std::cout << "Set-Cookie:" << cookie_ssid << std::endl;
         return http_resp(conn, true, websocketpp::http::status_code::ok, "登录成功");
     }
 
@@ -170,8 +168,7 @@ private:
             //cookie中没有ssid，返回错误：没有ssid信息，让客户端重新登录
             return http_resp(conn, false, websocketpp::http::status_code::bad_request, "找不到ssid信息，请重新登录");
         }
-
-        std::cout << "ssid_str:" << ssid_str << std::endl;
+        
         // 2.在session管理中查找对应的会话信息
         session_ptr ssp = _sm.get_sesson((uint64_t) (std::stol(ssid_str)));
         if (ssp.get() == nullptr) {
